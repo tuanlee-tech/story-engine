@@ -107,7 +107,7 @@ const overrides: Record<string, SceneOverride> = fs.existsSync(ovPath) ? JSON.pa
 for (const [k, v] of Object.entries(overrides)) {
   if (v.camera && !CAMERAS.includes(v.camera)) fail(`overrides[${k}].camera không hợp lệ: ${v.camera}`);
   if (v.transition && !TRANSITIONS.includes(v.transition)) fail(`overrides[${k}].transition không hợp lệ: ${v.transition}`);
-  if (v.sfx && !SFX_KINDS.includes(v.sfx)) fail(`overrides[${k}].sfx không hợp lệ: ${v.sfx}`);
+  // Dynamic SFX allowed
 }
 
 // ---------- dựng cảnh ----------
@@ -164,8 +164,9 @@ scenes.forEach((sc, i) => {
   if (kind === "none") return;
 
   if (kind === "swoosh") sfx.push({ file: "sfx/swoosh.wav", at: Math.max(0, sc.start - 0.12), volume: 0.55 });
-  if (kind === "hit") sfx.push({ file: "sfx/hit.wav", at: sc.start, volume: 0.7 });
-  if (kind === "riser") sfx.push({ file: "sfx/riser.wav", at: Math.max(0, sc.start - RISER_LEN), volume: 0.4 });
+  else if (kind === "hit") sfx.push({ file: "sfx/hit.wav", at: sc.start, volume: 0.7 });
+  else if (kind === "riser") sfx.push({ file: "sfx/riser.wav", at: Math.max(0, sc.start - RISER_LEN), volume: 0.4 });
+  else sfx.push({ file: `sfx/${kind}.wav`, at: sc.start, volume: 0.7 });
 
   const prevLen = scenes[i - 1].end - scenes[i - 1].start;
   if (ov === "auto" && kind === "swoosh" && i - lastRiser >= 8 && prevLen >= RISER_LEN + 0.2) {

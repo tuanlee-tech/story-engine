@@ -1,11 +1,11 @@
 export type Camera = "push-in" | "pull-out" | "pan-left" | "pan-right" | "drift-up" | "static";
 export type Transition = "dissolve" | "whoosh" | "flash" | "cut";
-export type SfxKind = "auto" | "none" | "swoosh" | "riser" | "hit";
+export type SfxKind = string;
 export type SubtitleStyle = "box" | "yellow";
 
 export const CAMERAS: Camera[] = ["push-in", "pull-out", "pan-left", "pan-right", "drift-up", "static"];
 export const TRANSITIONS: Transition[] = ["dissolve", "whoosh", "flash", "cut"];
-export const SFX_KINDS: SfxKind[] = ["auto", "none", "swoosh", "riser", "hit"];
+export const SFX_KINDS: string[] = ["auto", "none", "swoosh", "riser", "hit"]; // This is now just default suggestions
 
 /** Thời gian tính bằng giây, tuyệt đối trên timeline. */
 export interface Word {

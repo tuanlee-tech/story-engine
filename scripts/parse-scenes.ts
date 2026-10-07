@@ -66,7 +66,7 @@ scenes.forEach((s, i) => {
   if (!s.PROMPT) errors.push(`Cảnh ${s.id}: thiếu PROMPT.`);
   if (s.CAMERA && !CAMERAS.includes(s.CAMERA as never)) errors.push(`Cảnh ${s.id}: CAMERA "${s.CAMERA}" không hợp lệ (${CAMERAS.join("|")}).`);
   if (s.TRANSITION && !TRANSITIONS.includes(s.TRANSITION as never)) errors.push(`Cảnh ${s.id}: TRANSITION "${s.TRANSITION}" không hợp lệ (${TRANSITIONS.join("|")}).`);
-  if (s.SFX && !SFX_KINDS.includes(s.SFX as never)) errors.push(`Cảnh ${s.id}: SFX "${s.SFX}" không hợp lệ (${SFX_KINDS.join("|")}).`);
+  // Any SFX string is allowed now
   const n = tokenize(s.NARRATION).length;
   if (n > 18) notes.push(`Cảnh ${s.id}: câu dài ${n} chữ — nên tách để mỗi cảnh ≈ 2–4 giây.`);
   if (n > 0 && n < 2) notes.push(`Cảnh ${s.id}: câu 1 chữ — chỉ nên dùng cho nhịp nhấn.`);
