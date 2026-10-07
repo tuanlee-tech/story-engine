@@ -1,0 +1,21 @@
+node_modules
+out
+public/timeline.json
+.env
+# Generated Assets
+public/images/*
+!public/images/.gitkeep
+public/audio/*
+!public/audio/.gitkeep
+input/sentences.txt
+input/prompts.txt
+input/prompts.json
+input/overrides.json
+input/voice.srt
+
+# Output
+out/
+
+# Virtual Environments & Tools
+venv/
+tools/

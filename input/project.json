@@ -1,0 +1,12 @@
+{
+  "fps": 30,
+  "format": "vertical",
+  "subtitleStyle": "box",
+  "voice": "audio/voice.mp3",
+  "bgm": "audio/bgm.mp3",
+  "voiceVolume": 1,
+  "bgmVolume": 0.12,
+  "lead": 0.1,
+  "tail": 1.2,
+  "maxWordsPerChunk": 6
+}
