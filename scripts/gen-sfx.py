@@ -1,72 +1,78 @@
-#!/usr/bin/env python3
-"""Tổng hợp 3 SFX mặc định (không dính bản quyền): swoosh, riser, hit → public/sfx/*.wav
-Chạy: npm run sfx   (cần numpy). Có thể thay bằng file của bạn cùng tên."""
 import os
-import wave
+import re
+import subprocess
 
-import numpy as np
+# Thư mục chứa sfx
+os.makedirs("public/sfx", exist_ok=True)
 
-SR = 44100
-OUT = os.path.join(os.path.dirname(__file__), "..", "public", "sfx")
-os.makedirs(OUT, exist_ok=True)
-rng = np.random.default_rng(7)
+# Từ điển các thuật toán tổng hợp âm thanh (Procedural Audio bằng FFmpeg lavfi)
+# Dùng để tự sinh các âm thanh theo ngữ cảnh thay vì dùng file cứng.
+PROCEDURAL_SFX = {
+    "swoosh": "0.5*random(0)*exp(-5*t)*sin(800*t)",
+    "hit": "random(0)*exp(-10*t)*sin(100*t)",
+    "riser": "0.5*sin(100*t + 100*t*t)*exp(-0.2*t)",
+    "rumble": "0.5*random(0)*exp(-1*t)*sin(80*t)",
+    "heartbeat": "0.8*sin(50*t)*exp(-10*t) + 0.8*sin(50*(t-0.3))*exp(-10*(t-0.3))",
+    "crash": "0.4*random(0)*exp(-8*t)*sin(800*t) + 0.3*random(0)*exp(-10*t)",
+    "metal": "0.3*sin(1500*t)*exp(-5*t) + 0.1*random(0)*exp(-15*t)",
+    "wind": "0.2*random(0)*sin(1000*t)",
+    "magic": "0.3*sin(800*t)*sin(10*t) + 0.2*sin(1200*t)",
+    "punch": "random(0)*exp(-15*t)*sin(50*t)",
+    "thunder": "0.8*random(0)*exp(-2*t)*sin(40*t)",
+    "beep": "0.5*sin(1000*t)*exp(-5*t)"
+}
 
+def generate_sfx(name):
+    path = f"public/sfx/{name}.wav"
+    if os.path.exists(path):
+        print(f"✓ SFX '{name}' đã tồn tại.")
+        return
 
-def one_pole_sweep(x, cutoff):
-    """Lowpass 1 cực với tần số cắt thay đổi theo thời gian."""
-    a = 1.0 - np.exp(-2.0 * np.pi * cutoff / SR)
-    y = np.empty_like(x)
-    s = 0.0
-    for i in range(len(x)):
-        s += a[i] * (x[i] - s)
-        y[i] = s
-    return y
+    # Lấy công thức lavfi. Nếu không có trong từ điển, dùng thuật toán default_synth
+    formula = PROCEDURAL_SFX.get(name.lower())
+    if not formula:
+        print(f"⚠ SFX '{name}' không có trong thư viện chuẩn. Đang tổng hợp âm thanh tự động...")
+        # Tạo một âm thanh synth ngẫu nhiên nhẹ nhàng dựa trên hash của tên
+        seed = sum(ord(c) for c in name) % 1000
+        formula = f"0.4*sin({500 + seed}*t)*exp(-3*t)"
+        
+    duration = 1.5 if name not in ['heartbeat', 'wind', 'rumble'] else 3.0
+    
+    print(f"⚙ Đang sinh âm thanh: {name}.wav...")
+    cmd = [
+        "ffmpeg", "-y", "-v", "error",
+        "-f", "lavfi", "-i", f"aevalsrc='{formula}':s=48000:d={duration}",
+        path
+    ]
+    
+    subprocess.run(cmd)
+    if os.path.exists(path):
+        print(f"✓ Đã tạo thành công {path}")
+    else:
+        print(f"✗ Lỗi khi tạo {path}")
 
+def main():
+    scenes_file = "input/scenes.md"
+    if not os.path.exists(scenes_file):
+        print("✗ Không tìm thấy input/scenes.md")
+        return
+        
+    content = open(scenes_file, "r", encoding="utf-8").read()
+    
+    # Tìm tất cả các SFX: <name> trong scenes.md
+    sfx_matches = set(re.findall(r"(?i)^SFX\s*:\s*([a-zA-Z0-9_-]+)", content, re.MULTILINE))
+    
+    # Cộng thêm các SFX mặc định nếu có dùng auto (do parse-scenes có cơ chế auto swoosh/hit/riser)
+    sfx_matches.update(["swoosh", "hit", "riser"])
+    
+    print(f"Phát hiện {len(sfx_matches)} loại SFX cần thiết cho kịch bản: {', '.join(sfx_matches)}")
+    
+    for sfx_name in sfx_matches:
+        if sfx_name.lower() == "none" or sfx_name.lower() == "auto":
+            continue
+        generate_sfx(sfx_name)
+        
+    print("\n✓ Hoàn tất việc chuẩn bị SFX cho kịch bản!")
 
-def save(name, left, right):
-    st = np.stack([left, right], axis=1)
-    st = st / (np.max(np.abs(st)) + 1e-9) * 0.7  # ~ -3 dBFS
-    pcm = (st * 32767).astype("<i2")
-    with wave.open(os.path.join(OUT, name), "wb") as w:
-        w.setnchannels(2)
-        w.setsampwidth(2)
-        w.setframerate(SR)
-        w.writeframes(pcm.tobytes())
-    print("✓", name, f"{len(st) / SR:.2f}s")
-
-
-# ---- swoosh: nhiễu trắng quét tần số, pan trái → phải ----
-d = 0.7
-n = int(SR * d)
-t = np.linspace(0, 1, n)
-noise = rng.standard_normal(n)
-cut = 300 * (30 ** np.sin(np.pi * t) ** 1.0)  # 300 → 9000 → 300 Hz (hình chuông)
-lp = one_pole_sweep(noise, np.clip(cut, 80, 12000))
-hp = lp - one_pole_sweep(lp, np.full(n, 250.0))
-env = np.sin(np.pi * t) ** 2.2
-sw = hp * env
-pan = t
-save("swoosh.wav", sw * np.cos(pan * np.pi / 2), sw * np.sin(pan * np.pi / 2))
-
-# ---- riser: nhiễu + tone, cutoff tăng dần, kết thúc dứt khoát ----
-d = 1.6
-n = int(SR * d)
-t = np.linspace(0, 1, n)
-noise = rng.standard_normal(n)
-lp = one_pole_sweep(noise, 250 * (40 ** t))
-freq = 180 * (7 ** t)
-phase = 2 * np.pi * np.cumsum(freq) / SR
-tone = 0.25 * np.sin(phase) + 0.12 * np.sin(phase * 1.5)
-env = (t ** 2.4) * np.minimum(1, (1 - t) * 40)
-rs = (lp * 0.8 + tone) * env
-save("riser.wav", rs, np.roll(rs, 90))
-
-# ---- hit: sub-boom giảm tần + xung nhiễu ----
-d = 0.9
-n = int(SR * d)
-t = np.linspace(0, d, n)
-f = 45 + 110 * np.exp(-t * 14)
-boom = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 5.5)
-burst = one_pole_sweep(rng.standard_normal(n), np.full(n, 2500.0)) * np.exp(-t * 38) * 0.6
-h = boom + burst
-save("hit.wav", h, h)
+if __name__ == "__main__":
+    main()
