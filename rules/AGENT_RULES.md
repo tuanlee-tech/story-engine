@@ -42,9 +42,13 @@ SFX: <tùy chọn>
 4. **Viết để nghe**, không viết để đọc:
    - Số, ngày, đơn vị, từ viết tắt → viết đúng như cách đọc ("hai nghìn không trăm hai mươi sáu", "phần trăm").
    - Không ngoặc đơn, không gạch đầu dòng, không biểu tượng đặc biệt.
-   - Dấu câu điều khiển nhịp TTS: `,` nghỉ ngắn · `.` nghỉ dài · `?` lên giọng.
+   - Dấu câu điều khiển nhịp TTS: `,` nghỉ ngắn · `.` nghỉ dài · `?` lên giọng và ngẫm nghĩ · `...` hoặc `—` khoảng lặng chiêm nghiệm.
 5. Giữ nguyên giọng văn/ý của SCRIPT. Chỉ tách câu, cắt thừa, sửa chỗ khó đọc. Không bịa dữ kiện.
 6. Mỗi câu chỉ **một ý**. Hai ý → hai cảnh.
+7. **Nhịp điệu và Khoảng lặng cảm xúc (Emotional Pacing & Silence):**
+   - **Tuyệt đối không đọc dồn dập, đọc cho hết chữ:** Người nghe cần thời gian để "ngấm" tư tưởng và chiêm nghiệm.
+   - Xen kẽ câu hỏi gợi mở, câu khẳng định đanh thép và khoảng lặng lắng đọng.
+   - Hệ thống âm thanh (`scripts/gen-voice.py`) sẽ tự động chèn khoảng lặng **0.75s – 1.2s** giữa các câu để nhạc nền và hiệu ứng phát huy tác dụng.
 
 ### Cấu trúc khuyến nghị
 | Đoạn | Thời lượng | Việc cần làm |
@@ -56,7 +60,27 @@ SFX: <tùy chọn>
 
 ---
 
-## 2. Prompt ảnh (PROMPT)
+## 2. Quy trình Cung cấp & Tìm kiếm Ảnh (Visual Hierarchy)
+
+Khi cần ảnh chủ thể (nhân vật, triết gia, bối cảnh), Agent **BẮT BUỘC** tuân thủ 3 tầng ưu tiên sau:
+
+1. **Tầng 1: Tự sinh bằng AI (AI Generation)**
+   - Ưu tiên công cụ Agent `generate_image` hoặc Gemini Image API.
+2. **Tầng 2: Hỏi Người dùng cung cấp ảnh (Ask User First)**
+   - NẾU không tự gen được (lỗi API, hết quota, hoặc AI vẽ sai thần thái/nhân vật):
+   - **BẮT BUỘC PHẢI HỎI NGƯỜI DÙNG TRƯỚC** (qua công cụ `ask_question` hoặc hỏi trực tiếp trong chat) để người dùng có cơ hội cung cấp ảnh mình có sẵn.
+3. **Tầng 3: Tự động tìm kiếm trên mạng (Web Search Fallback)**
+   - NẾU người dùng không cung cấp ảnh (hoặc xác nhận để AI tự tìm):
+   - Agent dùng công cụ tìm kiếm mạng để tải ảnh về với **ĐỘ ƯU TIÊN BẮT BUỘC:**
+     - 🥇 **ƯU TIÊN 1: ẢNH CHÂN DUNG (Portrait)** — Ảnh chân dung thực tế, tranh vẽ chân dung nghệ thuật, tranh sơn dầu có hồn và thần thái ánh mắt biểu cảm sống động.
+     - 🥈 **ƯU TIÊN 2: ẢNH TƯỢNG (Statue / Bust)** — Chỉ khi **KHÔNG TÌM THẤY** ảnh chân dung đạt chuẩn mới dùng ảnh tượng đá hoặc tượng đồng.
+4. **Hậu kỳ ảnh:**
+   - Chạy `python3 scripts/remove-bg.py <ảnh> public/<tên>.png` để tách nền trong suốt.
+   - Chạy `python3 scripts/check-overflow.py public/<tên>.png` để kiểm tra chống tràn khung / cụt đầu.
+
+---
+
+## 3. Prompt ảnh (PROMPT)
 
 Tiếng Anh, **một dòng**, thứ tự:
 
@@ -90,7 +114,7 @@ Tiếng Anh, **một dòng**, thứ tự:
 
 ---
 
-## 3. Điều khiển dựng (tùy chọn)
+## 4. Điều khiển dựng (tùy chọn)
 
 Mặc định máy làm tốt. Chỉ ghi khi bạn **chủ đích** khác mặc định.
 
@@ -114,11 +138,12 @@ Mặc định của máy: câu trước kết thúc bằng `?` hoặc câu hiệ
 
 ---
 
-## 4. Brief âm thanh (cho người/AI làm giọng)
+## 5. Brief âm thanh (cho người/AI làm giọng)
 
 Âm thanh là nửa còn lại của linh hồn. Viết NARRATION với các điều sau trong đầu:
 
 - **Giọng**: tốc độ 1.0–1.08×. Hook chậm hơn ~5%. Trước câu đảo ý ("Không hề.") chừa khoảng lặng 0.3–0.5 giây (ngắt bằng dấu chấm).
+- **Khoảng lặng lắng đọng (Silence Padding)**: Tuyệt đối không đọc dồn dập "cho hết chữ". Giữa các câu thoại phải có khoảng dừng **0.75s – 1.2s** (được tự động đệm bởi `scripts/gen-voice.py`) để người nghe ngẫm nghĩ và nhạc nền có không gian hòa quyện.
 - **Công nghệ TTS**: Ưu tiên 1 là Gemini TTS (`gemini-3.8-flash-tts`). Nếu Gemini TTS hết quota/rate-limit hoặc lỗi, **BẮT BUỘC CHUYỂN SANG VieNeu-TTS** (Local Neural Voice qua `scripts/gen-voice.py` hoặc thư viện `vieneu`). **TUYỆT ĐỐI CẤM DÙNG edge-tts (edgeTTS)** trong mọi hoàn cảnh.
 - **Mức âm**: giọng ≈ −16 LUFS trước khi trộn; bản cuối **−14 LUFS tích hợp, đỉnh ≤ −1.5 dBTP** (`npm run finalize` làm bước này).
 - **Nhạc nền**: không lời, ổn định, ít giai điệu ở dải 1–4 kHz để không tranh với giọng. Âm lượng ≈ 0.10–0.14 so với giọng. Tự fade-in 1s / fade-out 2.5s.
@@ -127,7 +152,7 @@ Mặc định của máy: câu trước kết thúc bằng `?` hoặc câu hiệ
 
 ---
 
-## 5. Tự kiểm tra trước khi xuất
+## 6. Tự kiểm tra trước khi xuất
 
 - [ ] Cảnh đánh số liên tục 001..N, không trùng/không thiếu.
 - [ ] Mọi cảnh có đủ `NARRATION` + `PROMPT`, mỗi cái 1 dòng.
@@ -137,11 +162,11 @@ Mặc định của máy: câu trước kết thúc bằng `?` hoặc câu hiệ
 - [ ] Không có 3 cảnh liên tiếp cùng cỡ cảnh.
 - [ ] Chữ trong ảnh ≤ 3 từ và chỉ khi là tâm điểm.
 - [ ] `flash` ≤ 3 lần; `riser` ≤ 1/8 cảnh; mọi giá trị CAMERA/TRANSITION/SFX hợp lệ.
-- [ ] Đọc to toàn bộ NARRATION như một bài nói: có mạch, có nhịp, không vấp.
+- [ ] Đọc to toàn bộ NARRATION như một bài nói: có mạch, có nhịp, không vấp, có khoảng lặng lắng đọng.
 
 ---
 
-## 6. Ví dụ (4 cảnh)
+## 7. Ví dụ (4 cảnh)
 
 ```
 ## 001

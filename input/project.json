@@ -4,8 +4,10 @@
   "template": "philosopher",
   "templateOptions": {
     "philosopher": {
-      "image": "marcus.png",
-      "bgm": "audio/Zambolino - Dorian.mp3"
+      "image": "khongtu.png",
+      "bgm": "audio/Zambolino - Dorian.mp3",
+      "zoom": [0.92, 1.0],
+      "shiftX": [-60, -20]
     }
   },
   "subtitleStyle": "box",

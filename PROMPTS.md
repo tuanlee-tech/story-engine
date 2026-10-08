@@ -7,8 +7,8 @@ Tài liệu này chứa các mẫu prompt đã được tối ưu hóa để ra 
 > Trong mọi câu lệnh prompt, AI Agent **BẮT BUỘC PHẢI ĐỌC VÀ DÙNG KỸ NĂNG** tại file:  
 > 📂 [`.agents/skills/auto-video-gen/SKILL.md`](.agents/skills/auto-video-gen/SKILL.md)  
 > File kỹ năng này hướng dẫn toàn bộ quy trình 11 bước tự động hóa và các công cụ dự phòng:
-> - **Sinh ảnh:** Dùng API Gemini hoặc Agent Tool `generate_image` nếu bị rate limit.
-> - **Giọng đọc:** Ưu tiên Gemini TTS. **Nếu hết quota / lỗi, LUÔN LUÔN DÙNG VieNeu-TTS (local)** qua `npm run voice`. **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**.
+> - **Hình ảnh (Thứ tự ưu tiên):** Tự gen AI ➔ Nếu không gen được: **Hỏi người dùng cung cấp** ➔ Nếu người dùng không có: Tìm trên mạng (**Ưu tiên 1: Chân dung có hồn > Ưu tiên 2: Tượng đá/đồng**).
+> - **Giọng đọc & Khoảng lặng:** Đọc truyền cảm, có khoảng ngừng nghỉ lắng đọng (tự động đệm 0.75s–1.2s giữa các câu). Ưu tiên Gemini TTS. **Nếu hết quota / lỗi, LUÔN LUÔN DÙNG VieNeu-TTS (local)** qua `npm run voice`. **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**.
 > - **SFX:** Tự động tổng hợp procedural audio bằng FFmpeg/Python (`npm run sfx`).
 
 ---
@@ -30,13 +30,18 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng dự án `story-e
 1. **Kịch bản & Cấu hình:**
    - Viết kịch bản tiếng Việt súc tích, uyên bác vào `input/scenes.md`, mỗi câu có từ khóa nhấn mạnh đánh dấu dạng `[từ khóa]`.
    - Cập nhật `input/project.json` kích hoạt `"template": "philosopher"`, định dạng `"horizontal"`.
-2. **Tượng Triết gia (Visual):**
-   - Sinh 1 ảnh tượng đá/đồng bán thân cổ điển của triết gia bằng công cụ sinh ảnh (`generate_image`).
-   - Tách nền trong suốt bằng script `python3 scripts/remove-bg.py <ảnh_gốc> public/<ten_triet_gia>.png`.
+2. **Hình ảnh Nhân vật / Triết gia (Visual Hierarchy):**
+   - **Tự sinh:** Dùng công cụ sinh ảnh `generate_image`.
+   - **Hỏi người dùng trước:** Nếu không tự gen được, **BẮT BUỘC HỎI NGƯỜI DÙNG** cung cấp ảnh trước.
+   - **Tìm trên mạng:** Nếu người dùng không cung cấp, tìm trên web theo độ ưu tiên:
+     - 🥇 **Ưu tiên 1: ẢNH CHÂN DUNG (Portrait)** — Tranh vẽ chân dung nghệ thuật / sơn dầu có hồn, ánh mắt và cảm xúc sống động.
+     - 🥈 **Ưu tiên 2: ẢNH TƯỢNG (Statue / Bust)** — Chỉ khi không tìm được chân dung mới dùng ảnh tượng đá/đồng.
+   - **Tách nền:** `python3 scripts/remove-bg.py <ảnh_gốc> public/<ten_triet_gia>.png`.
    - Khai báo tên ảnh vào `templateOptions.philosopher.image` trong `input/project.json`.
-   - **Self-check tràn khung (BẮT BUỘC):** chạy `python3 scripts/check-overflow.py` (tự đọc `input/project.json`). Nếu báo `LOI`, chỉnh `templateOptions.philosopher.zoom` (scale Ken Burns [đầu, cuối], mặc định `[0.92, 1.0]`) và/hoặc `shiftX` (dịch ngang [từ, đến] px, mặc định `[-60, -20]`) rồi chạy lại cho đến khi báo `vua khung`. Tuyệt đối không render khi còn tràn khung (tượng lấn nửa chữ, cụt đầu).
-3. **Giọng đọc & Phụ đề:**
-   - Sinh giọng đọc trầm ấm, truyền cảm vào `public/audio/voice.mp3` qua `npm run voice` (ưu tiên Gemini TTS; nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**).
+   - **Self-check tràn khung (BẮT BUỘC):** chạy `python3 scripts/check-overflow.py` (tự đọc `input/project.json`). Nếu báo `LOI`, chỉnh `templateOptions.philosopher.zoom` (scale Ken Burns [đầu, cuối], mặc định `[0.92, 1.0]`) và/hoặc `shiftX` (dịch ngang [từ, đến] px, mặc định `[-60, -20]`) rồi chạy lại cho đến khi báo `vua khung`. Tuyệt đối không render khi còn tràn khung.
+3. **Giọng đọc & Phụ đề (Nhịp điệu lắng đọng):**
+   - Viết câu có nhịp thở, dùng dấu `,`, `...`, `?` ngắt ý chiêm nghiệm, tuyệt đối không đọc dồn dập "cho hết chữ".
+   - Sinh giọng đọc trầm ấm qua `npm run voice` (tự động đệm khoảng lặng 0.75s–1.2s lắng đọng giữa các câu). Ưu tiên Gemini TTS; nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**.
    - Tạo file phụ đề khớp mốc thời gian `input/voice.srt`.
 4. **Biên tập Timeline & SFX:**
    - Chạy `npm run scenes` và `npm run timeline`.
@@ -66,8 +71,8 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng kỹ năng tự �
 1. Đọc thêm `rules/AGENT_RULES.md` và `rules/STYLE_BIBLE.md` để đảm bảo quy tắc độ dài câu và prompt sinh ảnh đồng nhất.
 2. Soạn `input/scenes.md` với đầy đủ mô tả hình ảnh, lời thoại dẫn chuyện và SFX tương ứng.
 3. Chạy `npm run scenes` để sinh danh sách prompt.
-4. Sinh ảnh cho từng scene và lưu vào `public/images/001.jpg`, `002.jpg`,... (sử dụng công cụ `generate_image` nếu API ngoài bị giới hạn).
-5. Tạo audio voice đọc kịch bản (`public/audio/voice.mp3`) qua `npm run voice` (ưu tiên Gemini TTS, nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**) và file SRT đồng bộ (`input/voice.srt`).
+4. Thu thập ảnh cho từng cảnh (ưu tiên tự gen, nếu lỗi hỏi người dùng trước, người dùng không có thì tìm mạng ưu tiên Chân dung > Tượng), lưu vào `public/images/001.jpg`, `002.jpg`,...
+5. Tạo audio voice đọc kịch bản (`public/audio/voice.mp3`) qua `npm run voice` có khoảng lặng lắng đọng giữa các câu (ưu tiên Gemini TTS, nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**) và file SRT đồng bộ (`input/voice.srt`).
 6. Biên soạn timeline qua `npm run timeline`, tự động tạo SFX qua `npm run sfx`.
 7. Kiểm tra QA và chạy `npm run build` để xuất video cuối cùng ra `out/final.mp4`.
 ```
@@ -78,7 +83,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng kỹ năng tự �
 > **Mục đích:** Thích hợp khi bạn muốn ra lệnh ngắn gọn chỉ trong 1-2 câu mà Agent vẫn biết chính xác file kỹ năng cần đọc và thực thi đúng template.
 
 ```markdown
-Đọc kỹ năng tại `.agents/skills/auto-video-gen/SKILL.md` và thực hiện toàn bộ quy trình auto-video-gen để làm 1 video triết học về [Seneca - Giá trị của thời gian]. Dùng template "philosopher", tự tạo ảnh tượng đá tách nền, sinh kịch bản tiếng Việt, voice qua npm run voice (Gemini TTS / VieNeu-TTS nếu hết quota, không dùng edgeTTS), timeline và render ra out/final.mp4.
+Đọc kỹ năng tại `.agents/skills/auto-video-gen/SKILL.md` và thực hiện toàn bộ quy trình auto-video-gen để làm 1 video triết học về [Seneca - Giá trị của thời gian]. Dùng template "philosopher", tìm/tạo ảnh ưu tiên Chân dung (hỏi người dùng nếu không gen được, không có mới dùng tượng), sinh kịch bản có khoảng lặng lắng đọng, voice qua npm run voice (Gemini TTS / VieNeu-TTS nếu hết quota, không dùng edgeTTS), timeline và render ra out/final.mp4.
 ```
 
 ---

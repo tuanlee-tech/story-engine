@@ -15,8 +15,8 @@ Bạn là một AI Agent hoàn chỉnh có khả năng tự động xử lý to�
 1. **Research (Nghiên cứu):** Dùng công cụ Web Search để tìm hiểu nội dung nếu cần.
 2. **Script (Kịch bản):** Viết lời thoại vào `input/scenes.md` theo chuẩn.
 3. **Storyboard (Phân cảnh):** Viết Prompt chi tiết cho từng câu đi kèm chỉ định Camera/SFX.
-4. **Visual (Hình ảnh):** Dùng trực tiếp Agent Tool sinh ảnh nội bộ (`generate_image`) thay vì phụ thuộc API ngoài nếu bị Rate Limit.
-5. **Voice (Giọng đọc):** Ưu tiên dùng API Gemini TTS. Nếu Gemini TTS hết quota/lỗi, **LUÔN LUÔN DÙNG VieNeu-TTS** (Vieneu) local chuẩn phòng thu. **TUYỆT ĐỐI KHÔNG DÙNG edge-tts / edgeTTS** trong bất kỳ trường hợp nào.
+4. **Visual (Hình ảnh):** Tự sinh ảnh (`generate_image`). Nếu không tự gen được, **TRƯỚC TIÊN HỎI NGƯỜI DÙNG CUNG CẤP ẢNH**. Nếu người dùng không cung cấp mới tìm trên mạng (bắt buộc ưu tiên **ẢNH CHÂN DUNG** trước, không có mới dùng **ẢNH TƯỢNG**).
+5. **Voice (Giọng đọc & Khoảng lặng lắng đọng):** Đọc truyền cảm, có khoảng ngừng nghỉ để người nghe "ngấm", tuyệt đối không đọc dồn dập "cho hết chữ". Hệ thống tự động đệm khoảng lặng 0.75s–1.2s giữa các câu. Ưu tiên Gemini TTS; nếu hết quota/lỗi, **LUÔN LUÔN DÙNG VieNeu-TTS** (Vieneu) local chuẩn phòng thu. **TUYỆT ĐỐI KHÔNG DÙNG edge-tts / edgeTTS**.
 6. **Music (Nhạc nền):** Tự động tải nhạc nền miễn phí (royalty-free) hoặc sinh BGM phù hợp không khí qua Python vào `public/audio/bgm.mp3`.
 7. **Animation (Chuyển động):** Gắn mã lệnh Camera (push-in, pan-right, drift-up) để Remotion nội suy.
 8. **SFX (Hiệu ứng âm thanh):** Dùng `scripts/gen-sfx.py` để tự động tổng hợp thuật toán âm thanh (procedural audio qua ffmpeg) bám sát ngữ cảnh (rumble, heartbeat, metal, crash...).
@@ -25,8 +25,10 @@ Bạn là một AI Agent hoàn chỉnh có khả năng tự động xử lý to�
 11. **Render MP4:** Chạy lệnh `npm run build` kết xuất với chất lượng -14 LUFS.
 
 ## 3. Tự động hóa đi kèm Dự phòng (Automation with Fallbacks)
-Hệ thống khuyến khích Agent tự cung tự cấp. Khi gặp lỗi API:
-- Hãy kích hoạt ngay các khả năng sẵn có (Tạo ảnh bằng `generate_image`, tạo âm thanh Local bằng `VieNeu-TTS` (`pip install vieneu`) — **tuyệt đối không dùng edgeTTS**, lấy nhạc bằng `wget`).
+Hệ thống khuyến khích Agent tự cung tự cấp nhưng phải có thứ bậc rõ ràng:
+- **Ảnh:** Tự gen AI ➔ Nếu lỗi: Hỏi người dùng cung cấp ➔ Nếu người dùng không có: Tìm trên mạng (Ưu tiên: Chân dung > Tượng đá/đồng).
+- **Giọng đọc:** Gemini TTS ➔ Nếu hết quota/lỗi: Tự động render local bằng `VieNeu-TTS` (`pip install vieneu`) — **tuyệt đối không dùng edgeTTS**.
+- **Nhạc:** Tự động lấy BGM qua `wget`.
 - Nếu ngay cả công cụ nội bộ cũng không khả dụng, lúc đó mới in ra màn hình để con người tự làm và chờ xác nhận.
 
 ## 4. Các Mẫu Prompt Thực Thi Chuẩn (Execution Prompts)

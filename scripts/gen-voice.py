@@ -52,6 +52,19 @@ if use_vieneu:
     from vieneu import Vieneu
     tts = Vieneu()
 
+def get_pause_duration(text, is_last):
+    """Xác định thời gian lặng (silence) giữa các câu để tạo nhịp ngừng nghỉ lắng đọng, chiêm nghiệm."""
+    if is_last:
+        return 1.2  # Câu kết: để dư âm đọng lại 1.2s
+    t = text.strip()
+    if t.endswith("?"):
+        return 1.0  # Câu hỏi tu từ: ngừng 1.0s để người nghe tự ngẫm nghĩ
+    if t.endswith("...") or t.endswith("—") or t.endswith(":"):
+        return 1.1  # Dấu lửng hoặc ngắt ý sâu sắc: lắng đọng 1.1s
+    if t.endswith("!"):
+        return 0.85
+    return 0.75  # Câu thường: nghỉ 0.75s tạo nhịp thở tự nhiên, không đọc dồn dập
+
 with open("concat.txt", "w") as f:
     for i, line in enumerate(lines):
         line = line.strip()
@@ -107,8 +120,17 @@ with open("concat.txt", "w") as f:
             srt.append(word)
             srt.append("")
         
-        current_time += dur
-        f.write(f"file '{os.path.abspath(wav_path)}'\n")
+        # Thêm khoảng lặng (silence padding) vào cuối câu để tạo lắng đọng
+        pause_dur = get_pause_duration(line, i == len(lines) - 1)
+        padded_path = f"public/audio/padded_{i}.wav"
+        subprocess.run([
+            "ffmpeg", "-y", "-i", wav_path,
+            "-af", f"apad=pad_dur={pause_dur}",
+            padded_path
+        ], capture_output=True, check=True)
+        
+        current_time += dur + pause_dur
+        f.write(f"file '{os.path.abspath(padded_path)}'\n")
         time.sleep(1)
 
 subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", "concat.txt", "-c:a", "libmp3lame", "-q:a", "2", "public/audio/voice.mp3"])
@@ -118,5 +140,7 @@ with open("input/voice.srt", "w") as f:
 for i in range(len(lines)):
     try: os.remove(f"public/audio/tmp_{i}.wav")
     except: pass
+    try: os.remove(f"public/audio/padded_{i}.wav")
+    except: pass
 os.remove("concat.txt")
-print("Generated Voice and SRT.")
+print("Generated Voice and SRT with emotional pauses.")

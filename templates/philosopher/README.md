@@ -28,12 +28,20 @@ Bộ template chuyên dụng cho các video **Triết học, Chủ nghĩa Khắc
 
 Ví dụ bạn muốn làm video về **Marcus Aurelius**, **Seneca**, hoặc **Socrates**:
 
-### Bước 1: Chuẩn bị ảnh tượng triết gia & tách nền
-Tìm 1 ảnh tượng đá/đồng bán thân của triết gia (ảnh góc chụp thẳng hoặc nghiêng 3/4), sau đó chạy lệnh tự động tách nền:
+### Bước 1: Chuẩn bị ảnh triết gia & tách nền (Quy tắc ưu tiên)
+1. **Tự sinh:** Dùng AI (`generate_image`).
+2. **Hỏi người dùng:** Nếu AI không sinh được ảnh đúng yêu cầu, **hỏi người dùng cung cấp ảnh trước**.
+3. **Tìm trên mạng:** Nếu người dùng không có, tìm kiếm trên mạng với thứ tự ưu tiên:
+   - 🥇 **Ưu tiên 1: Ảnh Chân Dung (Portrait)** — Tranh sơn dầu, tranh vẽ chân dung có hồn, biểu cảm ánh mắt sống động.
+   - 🥈 **Ưu tiên 2: Ảnh Tượng (Statue / Bust)** — Chỉ khi không có chân dung mới dùng ảnh tượng đá/đồng.
+4. **Tách nền:**
 ```bash
-npm run remove-bg duong-dan/anh-marcus.jpg public/marcus.png
+npm run remove-bg duong-dan/anh.jpg public/triet_gia.png
 ```
-*(Yêu cầu cài đặt 1 lần: `pip install rembg pillow`)*
+5. **Kiểm tra tràn khung:**
+```bash
+python3 scripts/check-overflow.py public/triet_gia.png
+```
 
 ### Bước 2: Kích hoạt template trong `input/project.json`
 Chỉ cần khai báo `"template": "philosopher"` và chỉ định tên ảnh:

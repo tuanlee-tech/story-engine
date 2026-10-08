@@ -28,8 +28,7 @@ npm run scenes                 # → input/sentences.txt, prompts.txt, prompts.j
 ```
 Lệnh này kiểm tra định dạng, báo lỗi theo từng cảnh, và ước tính thời lượng.
 
-**2. Ảnh/video** — đưa từng dòng `input/prompts.txt` vào Google Flow. Lưu vào `public/images/` theo **số cảnh**:
-`001.png`, `002.png`… hoặc giữ tên Flow có tiền tố số (`005_xxx.jpg`). Có thể trộn `.mp4/.webm` (clip dài ≥ độ dài cảnh).
+**2. Ảnh/video** — Tự động sinh qua AI (`generate_image`). Nếu không tự gen được, **hỏi người dùng cung cấp ảnh trước**; nếu người dùng không có, tìm kiếm trên mạng với thứ tự ưu tiên: **Ưu tiên 1: Ảnh Chân Dung (Portrait) có hồn > Ưu tiên 2: Ảnh Tượng (Statue/Bust)**. Lưu vào `public/images/` hoặc chạy `npm run remove-bg` tách nền cho template triết gia.
 
 **3. Giọng đọc & Phụ đề** — chạy lệnh tự động:
 ```bash
@@ -37,8 +36,8 @@ npm run voice                  # Tự động tạo public/audio/voice.mp3 và i
 ```
 - Ưu tiên 1: Gemini TTS (`gemini-3.8-flash-tts`).
 - Fallback khi hết Quota / lỗi: **Tự động chuyển sang VieNeu-TTS** (Local Neural Voice offline, không phụ thuộc API).
+- **Khoảng lặng lắng đọng:** Tự động chèn khoảng nghỉ **0.75s – 1.2s** giữa các câu để tạo chiều sâu chiêm nghiệm, tuyệt đối không đọc dồn dập "cho hết chữ".
 - *Lưu ý:* Dự án **tuyệt đối không dùng edgeTTS** vì chất lượng máy móc, ngữ điệu thiếu tự nhiên.
-- Bạn cũng có thể dùng file audio ngoài (ElevenLabs, đọc trực tiếp...) và chạy Whisper để sinh SRT.
 
 **4. Nhạc nền** (tùy chọn) — `public/audio/bgm.mp3`, nhạc không lời.
 
