@@ -49,6 +49,18 @@ npm run finalize               # → out/final.mp4  (loudnorm 2 lượt: -14 LUF
 # hoặc tất cả: npm run build
 ```
 
+---
+
+## 🤖 Mẫu Prompt ra lệnh cho AI Agent (Agent Prompts)
+
+Dự án đã tối ưu sẵn các mẫu prompt để bạn chỉ cần copy và đưa cho AI Agent (Antigravity, Cursor, Claude...) tự động làm từ A đến Z:
+- **Mẫu 1 (Video Triết học / Stoic Quotes)**: Tự tạo tượng đá tách nền, kịch bản danh ngôn, font hoài cổ rỉ mục, highlight dính liền cụm từ, render chuẩn -14 LUFS.
+- **Mẫu 2 (Video Kể chuyện nhiều phân cảnh)**: Tự phân cảnh kịch bản, sinh prompt theo `STYLE_BIBLE.md`, tạo chuỗi hình ảnh nhất quán, lồng tiếng và hiệu ứng chuyển cảnh.
+
+👉 Xem chi tiết đầy đủ nội dung các mẫu prompt tại: **[PROMPTS.md](PROMPTS.md)**
+
+---
+
 ## Tùy chỉnh
 
 **`input/project.json`**

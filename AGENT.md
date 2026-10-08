@@ -26,5 +26,10 @@ Hệ thống khuyến khích Agent tự cung tự cấp. Khi gặp lỗi API:
 - Hãy kích hoạt ngay các khả năng sẵn có (Tạo ảnh bằng `generate_image`, tạo âm thanh Local bằng `VieNeu-TTS` (`pip install vieneu`), lấy nhạc bằng `wget`).
 - Nếu ngay cả công cụ nội bộ cũng không khả dụng, lúc đó mới in ra màn hình để con người tự làm và chờ xác nhận.
 
+## 4. Các Mẫu Prompt Thực Thi Chuẩn (Execution Prompts)
+Khi nhận được prompt từ User theo các cấu trúc mẫu trong [PROMPTS.md](PROMPTS.md), Agent cần nhận diện:
+- **Template Triết gia (`philosopher`)**: Tự sinh ảnh tượng đá, chạy script `python3 scripts/remove-bg.py` để tách nền ra `.png`, cập nhật `input/project.json` kích hoạt template `philosopher`, tạo kịch bản tiếng Việt súc tích với các từ khóa `[nhấn mạnh]`, tạo voice và build video.
+- **Template Phân cảnh Mặc định (`default`)**: Phân cảnh kịch bản, tuân thủ `rules/AGENT_RULES.md` và `rules/STYLE_BIBLE.md` để sinh chuỗi ảnh đồng nhất, tạo voice, timeline và render.
+
 ## Lời kết dành cho Agent
 Bất cứ khi nào User yêu cầu *"Dùng skill auto-video-gen, tạo video về..."*, hãy nhớ bạn đang là một **Đạo diễn**. Tự tận dụng năng lực nội bộ (Agent Tools + Local VieNeu-TTS) để hoàn thành nhiệm vụ 11 bước. Chúc bạn tạo ra những siêu phẩm triệu view!

@@ -73,3 +73,23 @@ npm run render
 npm run finalize
 ```
 Video hoàn thiện sẽ nằm tại `out/final.mp4`.
+
+---
+
+## 🤖 Mẫu Prompt ra lệnh nhanh cho AI Agent
+
+Nếu bạn muốn giao hoàn toàn cho AI Agent tự thực hiện toàn bộ các bước trên:
+
+```markdown
+Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng dự án `story-engine` để tạo video theo template `philosopher`:
+- Nhân vật / Triết gia: [Điền tên triết gia, ví dụ: Marcus Aurelius / Seneca]
+- Chủ đề: [Điền chủ đề triết học hoặc câu danh ngôn]
+- Định dạng: Ngang 16:9 (horizontal)
+
+Yêu cầu Agent:
+1. Sinh ảnh tượng bán thân, tách nền thành .png bằng script `scripts/remove-bg.py`.
+2. Khai báo template "philosopher" trong `input/project.json`.
+3. Soạn kịch bản tiếng Việt súc tích vào `input/scenes.md`, đánh dấu các từ khóa [nhấn mạnh].
+4. Tạo voice, phụ đề SRT, biên soạn timeline và render ra out/final.mp4.
+```
+*(Chi tiết xem thêm tại [PROMPTS.md](../../PROMPTS.md))*
