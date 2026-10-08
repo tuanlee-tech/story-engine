@@ -1,6 +1,7 @@
 {
   "fps": 30,
-  "format": "vertical",
+  "format": "horizontal",
+  "template": "philosopher",
   "subtitleStyle": "box",
   "voice": "audio/voice.mp3",
   "bgm": "audio/bgm.mp3",

@@ -44,6 +44,7 @@ export interface Timeline {
   height: number;
   durationInFrames: number;
   subtitleStyle: SubtitleStyle;
+  template?: "philosopher" | "default";
   voice: string | null;
   voiceVolume: number;
   bgm: string | null;
@@ -62,6 +63,7 @@ export interface ProjectConfig {
   fps: number;
   format: "vertical" | "horizontal";
   subtitleStyle: SubtitleStyle;
+  template?: "philosopher" | "default";
   voice: string | null;
   bgm: string | null;
   voiceVolume: number;

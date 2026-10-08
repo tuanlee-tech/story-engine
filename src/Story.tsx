@@ -3,6 +3,7 @@ import { AbsoluteFill, Sequence } from "remotion";
 import { SceneView } from "./components/SceneView";
 import { Soundtrack } from "./components/Soundtrack";
 import { Subtitles } from "./components/Subtitles";
+import { PhilosopherTemplate } from "./components/PhilosopherTemplate";
 import { TRANSITION_SECONDS, type Timeline } from "./lib/types";
 
 export type StoryProps = { timeline: Timeline };
@@ -29,6 +30,15 @@ export const Story: React.FC<StoryProps> = ({ timeline }) => {
   );
 
   const chunks = useMemo(() => scenes.flatMap((s) => s.chunks), [scenes]);
+
+  if (timeline.template === "philosopher") {
+    return (
+      <AbsoluteFill style={{ background: "#000" }}>
+        <PhilosopherTemplate timeline={timeline} />
+        <Soundtrack timeline={timeline} />
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill style={{ background: "#000" }}>

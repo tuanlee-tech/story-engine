@@ -186,6 +186,7 @@ const timeline: Timeline = {
   height,
   durationInFrames: Math.ceil(totalSeconds * config.fps),
   subtitleStyle: config.subtitleStyle,
+  template: config.template || "default",
   voice: config.voice && fs.existsSync(PUB(config.voice)) ? config.voice : null,
   voiceVolume: config.voiceVolume,
   bgm: config.bgm && fs.existsSync(PUB(config.bgm)) ? config.bgm : null,
