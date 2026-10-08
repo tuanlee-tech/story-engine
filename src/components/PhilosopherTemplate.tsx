@@ -124,12 +124,14 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
     fps,
     config: { damping: 30, stiffness: 18, mass: 1.8 },
   });
-  const statueTranslateX = interpolate(statueEntrance, [0, 1], [-140, -50]);
+  const statueTranslateX = interpolate(statueEntrance, [0, 1], [-60, -20]);
   const statueOpacity = interpolate(statueEntrance, [0, 1], [0, 1]);
 
   // 3. Chuyển động zoom/drift chậm rãi xuyên suốt toàn bộ video (Ken Burns)
+  // Fit-to-height: contain + scale <= 1.0 để không tràn sang nửa chữ, không cụt đầu
+  // (kiểm tra bằng: python3 scripts/check-overflow.py public/<anh>.png)
   const totalFrames = timeline.durationInFrames || 600;
-  const statueScale = interpolate(frame, [0, totalFrames], [1.54, 1.63]);
+  const statueScale = interpolate(frame, [0, totalFrames], [0.92, 1.0]);
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
@@ -184,7 +186,7 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
         style={{
           width: "50%",
           left: 0,
-          bottom: "-5%", 
+          bottom: "0%",
           justifyContent: "flex-end",
           alignItems: "flex-start",
           scale: statueScale,

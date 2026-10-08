@@ -31,12 +31,14 @@ Lệnh này kiểm tra định dạng, báo lỗi theo từng cảnh, và ước
 **2. Ảnh/video** — đưa từng dòng `input/prompts.txt` vào Google Flow. Lưu vào `public/images/` theo **số cảnh**:
 `001.png`, `002.png`… hoặc giữ tên Flow có tiền tố số (`005_xxx.jpg`). Có thể trộn `.mp4/.webm` (clip dài ≥ độ dài cảnh).
 
-**3. Giọng đọc** — đưa `input/sentences.txt` vào TTS (ElevenLabs / OmniVoice…), lưu `public/audio/voice.mp3`.
-Lấy phụ đề theo thời gian:
+**3. Giọng đọc & Phụ đề** — chạy lệnh tự động:
 ```bash
-whisper public/audio/voice.mp3 --language vi --model medium --output_format srt --output_dir input
+npm run voice                  # Tự động tạo public/audio/voice.mp3 và input/voice.srt
 ```
-(ra `input/voice.srt`; công cụ nào xuất SRT cũng được — chữ trong SRT có thể sai nhẹ, chữ hiển thị luôn lấy từ kịch bản).
+- Ưu tiên 1: Gemini TTS (`gemini-3.8-flash-tts`).
+- Fallback khi hết Quota / lỗi: **Tự động chuyển sang VieNeu-TTS** (Local Neural Voice offline, không phụ thuộc API).
+- *Lưu ý:* Dự án **tuyệt đối không dùng edgeTTS** vì chất lượng máy móc, ngữ điệu thiếu tự nhiên.
+- Bạn cũng có thể dùng file audio ngoài (ElevenLabs, đọc trực tiếp...) và chạy Whisper để sinh SRT.
 
 **4. Nhạc nền** (tùy chọn) — `public/audio/bgm.mp3`, nhạc không lời.
 

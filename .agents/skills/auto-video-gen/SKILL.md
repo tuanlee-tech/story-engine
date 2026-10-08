@@ -22,11 +22,14 @@ Kỹ năng này giúp Agent biến một ý tưởng ngắn gọn thành một v
 3. **Visual (Sinh ảnh):** 
    Dùng API (`gemini-3.1-flash-image`). Nếu Rate Limit, DÙNG NGAY Agent Tool (`generate_image`).
 4. **Voice (Sinh giọng đọc):** 
-   Dùng API (Gemini TTS). Nếu API lỗi, CÀI VÀ DÙNG NGAY **VieNeu-TTS** (Local Neural Voice):
+   - **Ưu tiên 1:** Dùng API Gemini TTS (`gemini-3.8-flash-tts`).
+   - **Fallback bắt buộc khi hết Quota / Rate Limit (429) / lỗi:** **LUÔN LUÔN DÙNG VieNeu-TTS** (Local Neural Voice offline, giọng chuẩn phòng thu).
+   - **QUY TẮC CẤM:** **TUYỆT ĐỐI KHÔNG DÙNG edge-tts (edgeTTS)** trong mọi trường hợp vì chất lượng máy móc, ngữ điệu thiếu cảm xúc.
+   - Thực thi qua script: `npm run voice` hoặc `python3 scripts/gen-voice.py`. Cài đặt nếu chưa có:
    ```bash
    pip install --user --break-system-packages vieneu
    ```
-   Dùng đoạn mã Python `from vieneu import Vieneu; Vieneu().infer(...)` để tạo giọng cục bộ.
+   Dùng code Python: `from vieneu import Vieneu; tts = Vieneu(); audio = tts.infer(line, voice="Hải Đăng")` để tạo giọng đọc tự nhiên.
 5. **Music (Nhạc nền):** Dùng `wget` để tải nhạc.
 6. **Animation & SFX:** Đã được gắn trong kịch bản. Chạy `npm run sfx` để Agent tự động tổng hợp (procedural audio) các file âm thanh theo bối cảnh.
 7. **Timeline:** Chạy `npm run timeline`.

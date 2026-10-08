@@ -6,7 +6,10 @@ Tài liệu này chứa các mẫu prompt đã được tối ưu hóa để ra 
 > **CHỈ THỊ TIÊN QUYẾT CHO AI AGENT:**  
 > Trong mọi câu lệnh prompt, AI Agent **BẮT BUỘC PHẢI ĐỌC VÀ DÙNG KỸ NĂNG** tại file:  
 > 📂 [`.agents/skills/auto-video-gen/SKILL.md`](.agents/skills/auto-video-gen/SKILL.md)  
-> File kỹ năng này hướng dẫn toàn bộ quy trình 11 bước tự động hóa, các công cụ dự phòng (Agent Tool `generate_image`, `VieNeu-TTS` local, procedural audio cho SFX) giúp Agent tự chủ hoàn toàn mà không bị gián đoạn.
+> File kỹ năng này hướng dẫn toàn bộ quy trình 11 bước tự động hóa và các công cụ dự phòng:
+> - **Sinh ảnh:** Dùng API Gemini hoặc Agent Tool `generate_image` nếu bị rate limit.
+> - **Giọng đọc:** Ưu tiên Gemini TTS. **Nếu hết quota / lỗi, LUÔN LUÔN DÙNG VieNeu-TTS (local)** qua `npm run voice`. **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**.
+> - **SFX:** Tự động tổng hợp procedural audio bằng FFmpeg/Python (`npm run sfx`).
 
 ---
 
@@ -32,7 +35,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng dự án `story-e
    - Tách nền trong suốt bằng script `python3 scripts/remove-bg.py <ảnh_gốc> public/<ten_triet_gia>.png`.
    - Khai báo tên ảnh vào `templateOptions.philosopher.image` trong `input/project.json`.
 3. **Giọng đọc & Phụ đề:**
-   - Sinh giọng đọc trầm ấm, truyền cảm vào `public/audio/voice.mp3` (dùng Gemini TTS hoặc VieNeu-TTS local theo chỉ dẫn trong SKILL.md).
+   - Sinh giọng đọc trầm ấm, truyền cảm vào `public/audio/voice.mp3` qua `npm run voice` (ưu tiên Gemini TTS; nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**).
    - Tạo file phụ đề khớp mốc thời gian `input/voice.srt`.
 4. **Biên tập Timeline & SFX:**
    - Chạy `npm run scenes` và `npm run timeline`.
@@ -63,7 +66,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng kỹ năng tự �
 2. Soạn `input/scenes.md` với đầy đủ mô tả hình ảnh, lời thoại dẫn chuyện và SFX tương ứng.
 3. Chạy `npm run scenes` để sinh danh sách prompt.
 4. Sinh ảnh cho từng scene và lưu vào `public/images/001.jpg`, `002.jpg`,... (sử dụng công cụ `generate_image` nếu API ngoài bị giới hạn).
-5. Tạo audio voice đọc kịch bản (`public/audio/voice.mp3`) và file SRT đồng bộ (`input/voice.srt`).
+5. Tạo audio voice đọc kịch bản (`public/audio/voice.mp3`) qua `npm run voice` (ưu tiên Gemini TTS, nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**) và file SRT đồng bộ (`input/voice.srt`).
 6. Biên soạn timeline qua `npm run timeline`, tự động tạo SFX qua `npm run sfx`.
 7. Kiểm tra QA và chạy `npm run build` để xuất video cuối cùng ra `out/final.mp4`.
 ```
@@ -74,7 +77,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng kỹ năng tự �
 > **Mục đích:** Thích hợp khi bạn muốn ra lệnh ngắn gọn chỉ trong 1-2 câu mà Agent vẫn biết chính xác file kỹ năng cần đọc và thực thi đúng template.
 
 ```markdown
-Đọc kỹ năng tại `.agents/skills/auto-video-gen/SKILL.md` và thực hiện toàn bộ quy trình auto-video-gen để làm 1 video triết học về [Seneca - Giá trị của thời gian]. Dùng template "philosopher", tự tạo ảnh tượng đá tách nền, sinh kịch bản tiếng Việt, voice, timeline và render ra out/final.mp4.
+Đọc kỹ năng tại `.agents/skills/auto-video-gen/SKILL.md` và thực hiện toàn bộ quy trình auto-video-gen để làm 1 video triết học về [Seneca - Giá trị của thời gian]. Dùng template "philosopher", tự tạo ảnh tượng đá tách nền, sinh kịch bản tiếng Việt, voice qua npm run voice (Gemini TTS / VieNeu-TTS nếu hết quota, không dùng edgeTTS), timeline và render ra out/final.mp4.
 ```
 
 ---

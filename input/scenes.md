@@ -1,66 +1,46 @@
+# Marcus Aurelius - Vượt qua lo âu và làm chủ nghịch cảnh
+
 ## 001
-NARRATION: Chiến thắng bản thân là chiến thắng vĩ đại nhất.
-PROMPT: Medium shot from slightly below, a young man standing atop a mountain of broken chains, looking up at a glowing sun, dramatic lighting, heroic posture, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: drift-up
+NARRATION: Bạn tưởng lo âu là kẻ thù?
+PROMPT: Wide shot, simple round-headed character shrinking under a giant dark storm cloud shaped like a question mark, black ink line art on off-white paper, single blue accent on a small shield, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
+CAMERA: push-in
 
 ## 002
-NARRATION: Tự nhìn lại mình xem.
-PROMPT: Close-up of the same young man looking into a shattered mirror, seeing a shadowy, lazy version of himself in the reflection, cold blue light, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
+NARRATION: Marcus Aurelius nói không hề.
+PROMPT: Medium shot, ancient marble bust of a Roman emperor with calm stern face on a stone pedestal, soft spotlight, black ink line art on off-white paper, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
 TRANSITION: whoosh
-SFX: rumble
 
 ## 003
-NARRATION: Bạn đang làm chủ cuộc đời?
-PROMPT: Medium shot, the young man holding a glowing steering wheel in a dark void, intense focus, warm amber lighting from the wheel, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: push-in
+NARRATION: Lo âu chỉ là phán đoán sai về tương lai.
+PROMPT: Close-up, a pair of worried eyes looking at a cracked crystal ball showing a storm, black ink line art on off-white paper, single blue accent on the crack, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
 
 ## 004
-NARRATION: Hay đang làm nô lệ cho sự lười biếng?
-PROMPT: Wide shot, the young man tangled in heavy puppet strings manipulated by a giant shadowy hand, dark and gloomy atmosphere, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: pan-left
-SFX: heartbeat
-
-## 005
-NARRATION: Plato từng nói:
-PROMPT: Close-up of an ancient stone bust of Plato in a dark museum, a single spotlight illuminating his face, dust particles in the air, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-TRANSITION: whoosh
-SFX: heartbeat
-
-## 006
-NARRATION: Kẻ thù lớn nhất nằm ngay trong tư duy bạn.
-PROMPT: Medium shot, the young man clutching his head, a dark storm cloud brewing inside a glowing silhouette of his brain, lightning strikes, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: push-in
-SFX: rumble
-
-## 007
-NARRATION: Đánh bại người khác chỉ cần chút may mắn.
-PROMPT: Wide shot, a glowing gold coin flipping in the air above a defeated opponent in a dark arena, spotlight on the coin, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
+NARRATION: Việc ngoài tầm kiểm soát, hãy buông bỏ.
+PROMPT: Wide shot, open hands releasing sand and dry leaves into the wind, black ink line art on off-white paper, single blue accent on one leaf, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
 CAMERA: pull-out
 
+## 005
+NARRATION: Việc trong tay bạn, hãy làm hết lòng.
+PROMPT: Medium shot, strong hands gripping a ship rudder wheel with determination, black ink line art on off-white paper, single blue accent glowing on the wheel, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
+CAMERA: push-in
+
+## 006
+NARRATION: Cơn bão không chìm được thuyền vững tay lái.
+PROMPT: Wide shot, a small boat steady on huge waves under dark clouds, a firm hand on the tiller, black ink line art on off-white paper, single blue accent on the sail, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
+CAMERA: pan-right
+SFX: riser
+
+## 007
+NARRATION: Nghịch cảnh rèn ý chí, như lửa luyện thép.
+PROMPT: Close-up, a sword blade glowing in forge fire with sparks flying, black ink line art on off-white paper, single blue accent on the flame core, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
+
 ## 008
-NARRATION: Nhưng đập tan sự nuông chiều bản thân.
-PROMPT: Extreme close-up, the young man's fist smashing through a glowing screen showing a comfortable bed and junk food, glass shattering, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-TRANSITION: cut
-SFX: crash
+NARRATION: Bình thản không phải không sợ, mà là vẫn bước.
+PROMPT: Medium shot, simple round-headed character walking forward through light fog toward a rising sun, steady stride, black ink line art on off-white paper, single blue accent on the sun, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
+TRANSITION: whoosh
+SFX: hit
 
 ## 009
-NARRATION: Mới là thử thách khốc liệt nhất.
-PROMPT: Medium shot, the young man climbing a steep, rocky cliff with bare hands, sweating, muscles tense, warm dramatic sunlight from above, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
+NARRATION: Hôm nay, bạn làm chủ tâm trí mình.
+PROMPT: Medium shot, simple round-headed character standing calm on a mountain peak at sunrise, arms relaxed, clean simple background, black ink line art on off-white paper, single blue accent on the sunrise, Minimalist 2D hand-drawn explainer animation style, black ink line art on an off-white paper background, simple round-headed character with dot eyes, light grey shading, a single blue accent color on the key object, generous negative space, horizontal 16:9, bottom 15% of the frame left empty, no text unless specified, no watermark
 CAMERA: drift-up
-
-## 010
-NARRATION: Đừng lấy tự do để ngụy trang cho vô kỷ luật.
-PROMPT: Wide shot, a broken compass pointing in all directions wildly, sitting on top of messy scattered papers and spilled coffee, cold lighting, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: pan-right
-
-## 011
-NARRATION: Ngừng sống như kẻ bị cảm xúc dắt mũi.
-PROMPT: Medium shot, the young man walking forward with determination, cutting a red glowing rope tied around his neck, dynamic pose, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-TRANSITION: whoosh
-SFX: metal
-
-## 012
-NARRATION: Không làm chủ được mình, vĩnh viễn làm nô lệ.
-PROMPT: Wide shot, the young man sitting on a throne made of his own conquered fears and doubts, glowing aura of stoic calm, warm cinematic rim lighting, 2D digital cartoon illustration, semi-flat shading with soft painterly gradients, thick dark brown outlines, exaggerated expressive faces and gestures, saturated warm palette of amber, teal and deep red, cinematic rim lighting, soft glow around the key object, clean composition, vertical 9:16, subject inside the central 80% of the frame, bottom 22% of the frame left visually empty, no text unless specified, no watermark, no logo
-CAMERA: push-in
-SFX: rumble

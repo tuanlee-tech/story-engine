@@ -57,8 +57,8 @@ Thực hiện các bước như quy trình tiêu chuẩn:
 # 1. Tách câu từ kịch bản
 npm run scenes input/scenes.md
 
-# 2. Tạo giọng đọc voice.mp3 và sinh file phụ đề SRT
-whisper public/audio/voice.mp3 --language vi --model medium --output_format srt --output_dir input
+# 2. Tạo giọng đọc voice.mp3 và phụ đề SRT (Gemini TTS, fallback VieNeu-TTS, không dùng edgeTTS)
+npm run voice
 
 # 3. Biên soạn timeline
 npm run timeline
@@ -91,6 +91,6 @@ Yêu cầu Agent:
 1. Sinh ảnh tượng bán thân, tách nền thành .png bằng script `scripts/remove-bg.py`.
 2. Khai báo template "philosopher" trong `input/project.json`.
 3. Soạn kịch bản tiếng Việt súc tích vào `input/scenes.md`, đánh dấu các từ khóa [nhấn mạnh].
-4. Tạo voice, phụ đề SRT, biên soạn timeline và render ra out/final.mp4.
+4. Tạo voice qua `npm run voice` (Gemini TTS / VieNeu-TTS khi hết quota, không dùng edgeTTS), phụ đề SRT, biên soạn timeline và render ra out/final.mp4.
 ```
 *(Chi tiết xem thêm tại [PROMPTS.md](../../PROMPTS.md))*

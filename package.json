@@ -5,6 +5,7 @@
   "description": "Kịch bản + giọng đọc + ảnh AI → video kể chuyện (Remotion): Ken Burns, phụ đề karaoke, SFX, nhạc nền, chuẩn loudness -14 LUFS",
   "scripts": {
     "scenes": "tsx scripts/parse-scenes.ts",
+    "voice": "python3 scripts/gen-voice.py",
     "sfx": "python3 scripts/gen-sfx.py",
     "remove-bg": "python3 scripts/remove-bg.py",
     "timeline": "tsx scripts/build-timeline.ts",

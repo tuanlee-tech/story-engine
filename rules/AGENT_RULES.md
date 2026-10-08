@@ -119,6 +119,7 @@ Mặc định của máy: câu trước kết thúc bằng `?` hoặc câu hiệ
 Âm thanh là nửa còn lại của linh hồn. Viết NARRATION với các điều sau trong đầu:
 
 - **Giọng**: tốc độ 1.0–1.08×. Hook chậm hơn ~5%. Trước câu đảo ý ("Không hề.") chừa khoảng lặng 0.3–0.5 giây (ngắt bằng dấu chấm).
+- **Công nghệ TTS**: Ưu tiên 1 là Gemini TTS (`gemini-3.8-flash-tts`). Nếu Gemini TTS hết quota/rate-limit hoặc lỗi, **BẮT BUỘC CHUYỂN SANG VieNeu-TTS** (Local Neural Voice qua `scripts/gen-voice.py` hoặc thư viện `vieneu`). **TUYỆT ĐỐI CẤM DÙNG edge-tts (edgeTTS)** trong mọi hoàn cảnh.
 - **Mức âm**: giọng ≈ −16 LUFS trước khi trộn; bản cuối **−14 LUFS tích hợp, đỉnh ≤ −1.5 dBTP** (`npm run finalize` làm bước này).
 - **Nhạc nền**: không lời, ổn định, ít giai điệu ở dải 1–4 kHz để không tranh với giọng. Âm lượng ≈ 0.10–0.14 so với giọng. Tự fade-in 1s / fade-out 2.5s.
 - **SFX**: thưa. Không quá 1 SFX / 3 cảnh. SFX phục vụ nhịp, không trang trí.
