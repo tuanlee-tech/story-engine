@@ -260,22 +260,15 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
                         flexWrap: "nowrap",
                         justifyContent: "center",
                         alignItems: "center",
-                        gap: "0.22em",
+                        gap: "0.25em",
                         fontFamily: titleFont,
                         fontSize: group.words.length > 1 ? "5.4rem" : "6.5rem",
                         fontWeight: 800,
                         textTransform: "uppercase",
-                        color: colorHighlight,
                         lineHeight: 1.25,
                         paddingTop: "0.18em",
                         paddingBottom: "0.1em",
                         maxWidth: "100%",
-                        backgroundImage: `url(${staticFile("grunge.jpg")})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        filter: "brightness(1.2) drop-shadow(0 6px 16px rgba(0,0,0,0.9))",
                         overflow: "visible",
                       }}
                     >
@@ -294,6 +287,13 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
                               display: "inline-block",
                               opacity: isWordActive ? 1 : 0,
                               transform: `scale(${wordScale})`,
+                              backgroundImage: `url(${staticFile("grunge.jpg")})`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              WebkitBackgroundClip: "text",
+                              WebkitTextFillColor: "transparent",
+                              color: colorHighlight || "#ffffff",
+                              filter: "brightness(1.2) drop-shadow(0 6px 16px rgba(0,0,0,0.9))",
                             }}
                           >
                             {w.w}
