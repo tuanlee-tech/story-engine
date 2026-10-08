@@ -28,7 +28,7 @@ Kỹ năng này giúp Agent biến một ý tưởng ngắn gọn thành một v
    ```
    Dùng đoạn mã Python `from vieneu import Vieneu; Vieneu().infer(...)` để tạo giọng cục bộ.
 5. **Music (Nhạc nền):** Dùng `wget` để tải nhạc.
-6. **Animation & SFX:** Đã được gắn trong kịch bản.
+6. **Animation 6. **Animation & SFX:** Đã được gắn trong kịch bản. SFX:** Đã được gắn trong kịch bản. Chạy `npm run sfx` để Agent tự động tổng hợp (procedural audio) các file âm thanh theo bối cảnh.
 7. **Timeline:** Chạy `npm run timeline`.
 8. **QA:** Đảm bảo thư mục đủ file.
 9. **Render MP4:** Chạy `npm run build` xuất file `-14 LUFS`.

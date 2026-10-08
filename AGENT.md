@@ -16,7 +16,7 @@ Bạn là một AI Agent hoàn chỉnh có khả năng tự động xử lý to�
 5. **Voice (Giọng đọc):** Ưu tiên dùng API Gemini TTS. Nếu lỗi, Tự động Render Local bằng **VieNeu-TTS** (Vieneu) siêu tốc thay vì dùng các TTS thô sơ khác. 
 6. **Music (Nhạc nền):** Tự động tải nhạc nền miễn phí (royalty-free) hoặc sinh BGM phù hợp không khí qua Python vào `public/audio/bgm.mp3`.
 7. **Animation (Chuyển động):** Gắn mã lệnh Camera (push-in, pan-right, drift-up) để Remotion nội suy.
-8. **SFX (Hiệu ứng âm thanh):** Gắn mã lệnh SFX (whoosh, hit) để tạo điểm nhấn âm thanh.
+8. **SFX (Hiệu ứng âm thanh):** Dùng `scripts/gen-sfx.py` để tự động tổng hợp thuật toán âm thanh (procedural audio qua ffmpeg) bám sát ngữ cảnh (rumble, heartbeat, metal, crash...).
 9. **Timeline (Biên dịch thời gian):** Chạy lệnh `npm run timeline` để canh chỉnh subtitle khớp mili-giây.
 10. **QA (Kiểm thử chất lượng):** Kiểm tra lỗi cấu trúc JSON, âm thanh, hình ảnh thiếu.
 11. **Render MP4:** Chạy lệnh `npm run build` kết xuất với chất lượng -14 LUFS.
