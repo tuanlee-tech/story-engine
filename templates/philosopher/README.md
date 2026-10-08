@@ -87,6 +87,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng dự án `story-e
 - Định dạng: Ngang 16:9 (horizontal)
 
 Yêu cầu Agent:
+0. BẮT BUỘC: Đọc và kích hoạt kỹ năng tại `.agents/skills/auto-video-gen/SKILL.md`.
 1. Sinh ảnh tượng bán thân, tách nền thành .png bằng script `scripts/remove-bg.py`.
 2. Khai báo template "philosopher" trong `input/project.json`.
 3. Soạn kịch bản tiếng Việt súc tích vào `input/scenes.md`, đánh dấu các từ khóa [nhấn mạnh].

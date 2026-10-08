@@ -8,6 +8,9 @@ Dự án này không cần sự sáng tạo ngẫu hứng vô bờ bến. Khán 
 - **Không bao giờ** tự ý bỏ qua hậu tố phong cách (`STYLE_SUFFIX`) khi viết prompt sinh ảnh. Sự lặp lại chính là chìa khóa của tính nhất quán.
 
 ## 2. Quy trình 11 Bước Toàn Diện (Workflow)
+> [!IMPORTANT]
+> **KÍCH HOẠT KỸ NĂNG BẮT BUỘC:** Trước khi thực hiện bất kỳ lệnh nào, Agent **PHẢI ĐỌC VÀ DÙNG KỸ NĂNG** tại [`.agents/skills/auto-video-gen/SKILL.md`](.agents/skills/auto-video-gen/SKILL.md). File kỹ năng này là kim chỉ nam điều phối toàn bộ pipeline và các công cụ dự phòng.
+
 Bạn là một AI Agent hoàn chỉnh có khả năng tự động xử lý toàn bộ quy trình sản xuất video 11 bước (end-to-end) bằng các công cụ nội bộ của chính mình:
 1. **Research (Nghiên cứu):** Dùng công cụ Web Search để tìm hiểu nội dung nếu cần.
 2. **Script (Kịch bản):** Viết lời thoại vào `input/scenes.md` theo chuẩn.
