@@ -119,19 +119,23 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
   const leakProgress = isLeaking ? leakFrame / leakDuration : 0;
 
   // 2. Chuyển động vào cho tượng chậm rãi (Cinematic Entrance)
+  // zoom/shiftX đọc từ templateOptions để tự điều chỉnh theo từng ảnh tượng
+  // (self-check: python3 scripts/check-overflow.py)
+  const [zoomStart, zoomEnd] = timeline.templateOptions?.philosopher?.zoom ?? [0.92, 1.0];
+  const [txFrom, txTo] = timeline.templateOptions?.philosopher?.shiftX ?? [-60, -20];
   const statueEntrance = spring({
     frame,
     fps,
     config: { damping: 30, stiffness: 18, mass: 1.8 },
   });
-  const statueTranslateX = interpolate(statueEntrance, [0, 1], [-60, -20]);
+  const statueTranslateX = interpolate(statueEntrance, [0, 1], [txFrom, txTo]);
   const statueOpacity = interpolate(statueEntrance, [0, 1], [0, 1]);
 
   // 3. Chuyển động zoom/drift chậm rãi xuyên suốt toàn bộ video (Ken Burns)
   // Fit-to-height: contain + scale <= 1.0 để không tràn sang nửa chữ, không cụt đầu
   // (kiểm tra bằng: python3 scripts/check-overflow.py public/<anh>.png)
   const totalFrames = timeline.durationInFrames || 600;
-  const statueScale = interpolate(frame, [0, totalFrames], [0.92, 1.0]);
+  const statueScale = interpolate(frame, [0, totalFrames], [zoomStart, zoomEnd]);
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>

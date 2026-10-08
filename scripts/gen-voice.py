@@ -8,6 +8,15 @@ from google.genai.errors import ClientError
 
 # Set fallback flag
 use_vieneu = False
+_vieneu_voice = None
+
+
+def _vieneu_preset(tts):
+    """Preset voice phai la dict (get_preset_voice), khong truyen string ID truc tiep."""
+    global _vieneu_voice
+    if _vieneu_voice is None:
+        _vieneu_voice = tts.get_preset_voice("Hải Đăng")
+    return _vieneu_voice
 
 load_dotenv()
 try:
@@ -73,7 +82,7 @@ with open("concat.txt", "w") as f:
         
         if use_vieneu:
             print("Using VieNeu-TTS (Hải Đăng)...")
-            audio = tts.infer(line, voice="Hải Đăng")
+            audio = tts.infer(line, voice=_vieneu_preset(tts))
             tts.save(audio, wav_path)
             
         res = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", wav_path], capture_output=True, text=True)

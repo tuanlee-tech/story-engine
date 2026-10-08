@@ -43,9 +43,22 @@ def check(img_path, s, tx, label):
 
 def main():
     args = sys.argv[1:]
-    if not args:
-        print(__doc__)
-        sys.exit(2)
+    if not args or args[0].startswith("--"):
+        # Khong truyen anh: tu doc cau hinh project hien tai (self-check 1 lenh)
+        import json
+        cfg = json.load(open("input/project.json"))
+        ph = (cfg.get("templateOptions") or {}).get("philosopher") or {}
+        img = "public/" + ph.get("image", "philosopher.png")
+        z = ph.get("zoom") or [0.92, 1.0]
+        t = ph.get("shiftX") or [-60, -20]
+        print(f"Tu kiem tra theo input/project.json: {img} zoom={z} shiftX={t}")
+        ok1 = check(img, z[0], t[0], "dau video")
+        ok2 = check(img, z[1], t[1], "cuoi video")
+        if not (ok1 and ok2):
+            print("KET LUAN: TRAN KHUNG — giam scale hoac dich trai them.")
+            sys.exit(1)
+        print("KET LUAN: vua khung.")
+        return
     img = args[0]
     s0, s1 = 0.92, 1.0
     t0, t1 = -60, -20

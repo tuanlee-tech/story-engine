@@ -43,6 +43,12 @@ export interface PhilosopherTemplateOptions {
   image?: string;
   /** File nhạc nền (mặc định: "audio/Zambolino - Dorian.mp3") */
   bgm?: string;
+  /** Scale Ken Burns [đầu, cuối] — mặc định [0.92, 1.0] (fit-height, không tràn).
+   *  Ảnh vuông (vd philosopher.png mặc định) kiểm tra bằng scripts/check-overflow.py
+   *  rồi chỉnh ở đây nếu báo LOI. */
+  zoom?: [number, number];
+  /** TranslateX entrance [từ, đến] px — mặc định [-60, -20]. */
+  shiftX?: [number, number];
 }
 
 export interface TemplateOptions {

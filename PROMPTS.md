@@ -34,6 +34,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng dự án `story-e
    - Sinh 1 ảnh tượng đá/đồng bán thân cổ điển của triết gia bằng công cụ sinh ảnh (`generate_image`).
    - Tách nền trong suốt bằng script `python3 scripts/remove-bg.py <ảnh_gốc> public/<ten_triet_gia>.png`.
    - Khai báo tên ảnh vào `templateOptions.philosopher.image` trong `input/project.json`.
+   - **Self-check tràn khung (BẮT BUỘC):** chạy `python3 scripts/check-overflow.py` (tự đọc `input/project.json`). Nếu báo `LOI`, chỉnh `templateOptions.philosopher.zoom` (scale Ken Burns [đầu, cuối], mặc định `[0.92, 1.0]`) và/hoặc `shiftX` (dịch ngang [từ, đến] px, mặc định `[-60, -20]`) rồi chạy lại cho đến khi báo `vua khung`. Tuyệt đối không render khi còn tràn khung (tượng lấn nửa chữ, cụt đầu).
 3. **Giọng đọc & Phụ đề:**
    - Sinh giọng đọc trầm ấm, truyền cảm vào `public/audio/voice.mp3` qua `npm run voice` (ưu tiên Gemini TTS; nếu hết quota/lỗi **LUÔN LUÔN DÙNG VieNeu-TTS**, **TUYỆT ĐỐI KHÔNG DÙNG edgeTTS**).
    - Tạo file phụ đề khớp mốc thời gian `input/voice.srt`.
@@ -89,5 +90,7 @@ Bạn là AI Video Producer chuyên nghiệp. Hãy sử dụng kỹ năng tự �
 | `format` | `"horizontal"` hoặc `"vertical"` | 16:9 (YouTube) hoặc 9:16 (Shorts/TikTok/Reels) |
 | `template` | `"philosopher"` hoặc `"default"` | Chọn kiểu video triết học hoặc video phân cảnh |
 | `templateOptions.philosopher.image` | `"marcus.png"`, `"seneca.png"` | Ảnh tượng PNG đã tách nền trong suốt |
+| `templateOptions.philosopher.zoom` | `[0.92, 1.0]` | Scale Ken Burns [đầu, cuối]; giảm nếu tượng tràn sang nửa chữ |
+| `templateOptions.philosopher.shiftX` | `[-60, -20]` | Dịch ngang tượng [từ, đến] px; số càng âm càng lùi sang trái |
 | `subtitleStyle` | `"box"` hoặc `"yellow"` | Kiểu phụ đề cho template mặc định |
 | `bgmVolume` | `0.1` đến `0.15` | Âm lượng nhạc nền so với giọng đọc |
