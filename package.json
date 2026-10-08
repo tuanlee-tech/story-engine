@@ -6,6 +6,7 @@
   "scripts": {
     "scenes": "tsx scripts/parse-scenes.ts",
     "sfx": "python3 scripts/gen-sfx.py",
+    "remove-bg": "python3 scripts/remove-bg.py",
     "timeline": "tsx scripts/build-timeline.ts",
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts Story out/raw.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p",
@@ -15,7 +16,9 @@
   },
   "dependencies": {
     "@remotion/cli": "4.0.533",
+    "@remotion/effects": "^4.0.533",
     "@remotion/google-fonts": "^4.0.533",
+    "@remotion/rough-notation": "^4.0.533",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remotion": "4.0.533"

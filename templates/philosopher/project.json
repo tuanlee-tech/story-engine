@@ -2,6 +2,12 @@
   "fps": 30,
   "format": "horizontal",
   "template": "philosopher",
+  "templateOptions": {
+    "philosopher": {
+      "image": "philosopher.png",
+      "bgm": "audio/Zambolino - Dorian.mp3"
+    }
+  },
   "subtitleStyle": "box",
   "voice": "audio/voice.mp3",
   "bgm": "audio/Zambolino - Dorian.mp3",

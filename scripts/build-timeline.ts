@@ -157,6 +157,7 @@ const scenes: Scene[] = aligned.map((a, i) => {
 const sfx: SfxCue[] = [];
 let lastRiser = -99;
 scenes.forEach((sc, i) => {
+  if (config.template === "philosopher") return;
   if (i === 0) return;
   const ov = overrides[String(sc.id)]?.sfx ?? "auto";
   if (ov === "none") return;
@@ -177,6 +178,11 @@ scenes.forEach((sc, i) => {
 for (const f of new Set(sfx.map((s) => s.file))) {
   if (!fs.existsSync(PUB(f))) warn(`Thiếu public/${f} — chạy: npm run sfx`);
 }
+// Nếu dùng template philosopher mà chưa set BGM, tự động gán nhạc mặc định của template
+if (config.template === "philosopher" && !config.bgm) {
+  config.bgm = config.templateOptions?.philosopher?.bgm || "audio/Zambolino - Dorian.mp3";
+}
+
 if (config.bgm && !fs.existsSync(PUB(config.bgm))) warn(`Chưa thấy public/${config.bgm} — video sẽ không có nhạc nền.`);
 
 // ---------- ghi timeline ----------
@@ -187,6 +193,7 @@ const timeline: Timeline = {
   durationInFrames: Math.ceil(totalSeconds * config.fps),
   subtitleStyle: config.subtitleStyle,
   template: config.template || "default",
+  templateOptions: config.templateOptions,
   voice: config.voice && fs.existsSync(PUB(config.voice)) ? config.voice : null,
   voiceVolume: config.voiceVolume,
   bgm: config.bgm && fs.existsSync(PUB(config.bgm)) ? config.bgm : null,

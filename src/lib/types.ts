@@ -38,6 +38,17 @@ export interface SfxCue {
   volume: number;
 }
 
+export interface PhilosopherTemplateOptions {
+  /** Tên file ảnh tượng tách nền trong /public (mặc định: "philosopher.png") */
+  image?: string;
+  /** File nhạc nền (mặc định: "audio/Zambolino - Dorian.mp3") */
+  bgm?: string;
+}
+
+export interface TemplateOptions {
+  philosopher?: PhilosopherTemplateOptions;
+}
+
 export interface Timeline {
   fps: number;
   width: number;
@@ -45,6 +56,7 @@ export interface Timeline {
   durationInFrames: number;
   subtitleStyle: SubtitleStyle;
   template?: "philosopher" | "default";
+  templateOptions?: TemplateOptions;
   voice: string | null;
   voiceVolume: number;
   bgm: string | null;
@@ -64,6 +76,7 @@ export interface ProjectConfig {
   format: "vertical" | "horizontal";
   subtitleStyle: SubtitleStyle;
   template?: "philosopher" | "default";
+  templateOptions?: TemplateOptions;
   voice: string | null;
   bgm: string | null;
   voiceVolume: number;

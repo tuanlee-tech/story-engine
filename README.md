@@ -56,11 +56,37 @@ npm run finalize               # → out/final.mp4  (loudnorm 2 lượt: -14 LUF
 | Khóa | Mặc định | Ý nghĩa |
 |---|---|---|
 | `format` | `vertical` | `vertical` 1080×1920 · `horizontal` 1920×1080 |
+| `template` | `default` | `default`: Storytelling nhiều cảnh hình ảnh/video · `philosopher`: Kinetic Typography triết học danh ngôn |
+| `templateOptions` | `{}` | Tùy chọn chi tiết cho template (vd: `image` tượng triết gia) |
 | `subtitleStyle` | `box` | `box`: CHỮ HOA trắng viền đen, từ đang đọc nền cam · `yellow`: chữ thường trên nền tối, từ đang đọc màu vàng |
 | `bgmVolume` | `0.12` | âm lượng nhạc nền so với giọng |
 | `lead` | `0.1` | hình đổi trước giọng bấy nhiêu giây |
 | `tail` | `1.2` | giữ cảnh cuối sau khi hết giọng |
 | `maxWordsPerChunk` | `6` | số chữ tối đa mỗi dòng phụ đề |
+
+---
+
+## 🎨 Bộ Template (Templates)
+
+Engine hỗ trợ các bộ template chuyên biệt theo từng phong cách kênh:
+
+### Template `philosopher` (Triết học, Khắc kỷ, Danh ngôn)
+- **Đặc trưng**: Tượng triết gia bán thân bên trái trượt vào chậm rãi (`Ken Burns Drift`), kinetic typography bên phải với font Cinzel rỉ mục hoài cổ (`grunge mask`), highlight vệt cọ dính cụm 2 chữ (`@remotion/rough-notation`), nền giấy cũ nếp gấp và phổ quang ánh sáng trắng/bạc (`@remotion/effects`).
+- **Kích hoạt nhanh**: Trong `input/project.json`, đặt `"template": "philosopher"`.
+- **Đổi tượng triết gia mới**:
+  ```bash
+  npm run remove-bg duong-dan/anh.jpg public/ten_anh.png
+  ```
+  Sau đó chỉ định trong `project.json`:
+  ```json
+  {
+    "template": "philosopher",
+    "templateOptions": {
+      "philosopher": { "image": "ten_anh.png" }
+    }
+  }
+  ```
+- Xem chi tiết tại: `templates/philosopher/README.md`.
 
 **Chỉnh từng cảnh** — sửa `input/overrides.json` (hoặc dòng `CAMERA/TRANSITION/SFX` trong `scenes.md` rồi chạy lại `npm run scenes`):
 ```json
