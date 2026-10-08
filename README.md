@@ -15,7 +15,7 @@ Yêu cầu: Node 20+, FFmpeg (có `ffprobe`), Python 3 + numpy (chỉ để tạ
 
 ```bash
 npm install
-npm run sfx          # tạo public/sfx/swoosh.wav, riser.wav, hit.wav (đã có sẵn, chạy lại nếu cần)
+npm run sfx          # Sinh procedural SFX (rumble, heartbeat, metal, crash...) dựa trên scenes.md
 ```
 
 ## Quy trình 1 video
@@ -66,6 +66,7 @@ npm run finalize               # → out/final.mp4  (loudnorm 2 lượt: -14 LUF
 ```json
 { "5": { "camera": "pan-left", "transition": "whoosh", "sfx": "riser" } }
 ```
+- *Lưu ý về SFX*: Bạn có thể điền **bất kỳ tên hiệu ứng nào** (ví dụ: `rumble`, `heartbeat`, `metal`, `crash`, `wind`, `magic`...). Chạy lệnh `npm run sfx` sau đó, hệ thống sẽ dùng FFmpeg (Procedural Audio) để tự động tổng hợp ra file âm thanh tương ứng vào `public/sfx/`. Nếu điền một tên hoàn toàn mới, hệ thống sẽ fallback sinh ra một tần số âm thanh ngẫu nhiên bám sát keyword đó!
 
 **Quy tắc tự động** (mô phỏng "Máy quay tự động / Chuyển cảnh / SFX tự động" của HAStudio)
 - Camera xoay vòng `push-in → pan-right → pull-out → pan-left → drift-up`, không bao giờ lặp chuyển động cảnh liền trước; video clip → `static`.
