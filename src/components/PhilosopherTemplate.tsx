@@ -81,23 +81,38 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#050505" }}>
+      <style>{`
+        @font-face {
+          font-family: 'SlightlyEroded';
+          src: url('${staticFile("SlightlyEroded.ttf")}') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
       {/* Layer 0: Background Animation (khói / bụi hạt / ánh sáng le lói) */}
       <AbsoluteFill style={{ opacity: 0.15, mixBlendMode: "screen" }}>
          {/* Có thể dùng một clip hạt bụi tĩnh. Ở đây dùng CSS gradient mờ */}
          <div style={{ width: "100%", height: "100%", background: "radial-gradient(circle at 70% 50%, #333 0%, transparent 60%)" }} />
       </AbsoluteFill>
 
-      {/* Layer 1: Chủ thể bức tượng 40% bên trái */}
-      <AbsoluteFill style={{ 
-        width: "40%", left: 0, bottom: 0, 
-        justifyContent: "flex-end", alignItems: "center" 
-      }}>
-        <Img src={philosopherImg} style={{ width: "90%", objectFit: "contain", filter: "contrast(1.1) brightness(0.9) grayscale(0.8)" }} />
+      {/* Layer 1: Chủ thể bức tượng 50% bên trái, bự hơn */}
+      <AbsoluteFill
+        style={{
+          width: "50%",
+          left: 0,
+          bottom: "-5%",
+          justifyContent: "flex-end",
+          alignItems: "flex-start",
+          scale: 1.584,
+          translate: "-50px 0px"
+        }}
+      >
+        <Img src={philosopherImg} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "left bottom", filter: "contrast(1.1) brightness(0.9) grayscale(0.8)" }} />
       </AbsoluteFill>
 
-      {/* Layer 2: Text 60% bên phải */}
+      {/* Layer 2: Text 50% bên phải */}
       <AbsoluteFill style={{ 
-        width: "55%", left: "40%", top: 0, height: "100%",
+        width: "50%", left: "45%", top: 0, height: "100%",
         display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
         padding: "0 2rem"
       }}>
@@ -115,7 +130,7 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
               const scale = interpolate(pop, [0, 1], [0.8, 1]);
               const opacity = interpolate(pop, [0, 1], [0, 1]);
 
-              // Nếu là từ nhấn mạnh -> bẻ dòng (flexBasis 100%) và font lớn
+              // Nhấn mạnh: bẻ dòng (flexBasis 100%) và font cực lớn
               return (
                 <span 
                   key={i} 
@@ -125,10 +140,10 @@ export const PhilosopherTemplate: React.FC<Props> = ({ timeline }) => {
                     transform: `scale(${scale})`,
                     flexBasis: isEm ? "100%" : "auto",
                     textAlign: "center",
-                    fontFamily: isEm ? titleFont : bodyFont,
-                    fontSize: isEm ? "5.5rem" : "2.5rem",
-                    fontWeight: isEm ? 800 : 500,
-                    textTransform: isEm ? "uppercase" : "none",
+                    fontFamily: "'SlightlyEroded', sans-serif", // Dùng font custom Slightly Eroded
+                    fontSize: isEm ? "7rem" : "4.5rem", // Font to hơn
+                    fontWeight: isEm ? 800 : 700,
+                    textTransform: "uppercase", // Luôn uppercase
                     color: isEm ? "#fff" : "#ccc",
                     textShadow: "0 4px 12px rgba(0,0,0,0.8)",
                     lineHeight: 1.1
